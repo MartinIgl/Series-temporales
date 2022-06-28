@@ -132,7 +132,7 @@ def query_y_creacion_DB_total(lista_upcs,arg1=None,arg2=None,arg3=None):
     #2) bajar los datos de venta basal de esos articulos:
 
  
-    qvb = ""
+    qvb = """
         """.format(ip=lista_upcs)
          
 
@@ -148,7 +148,7 @@ def query_y_creacion_DB_total(lista_upcs,arg1=None,arg2=None,arg3=None):
     df=df[['fecha',  'artc_artc_id','grupo','locales','venta_basal']]
 
     # GRABO en snowflake
-    df.to_csv('/home/miglesias/Proyectos/BAS/forecast_bas/prophet/datos_VB/VB_ART_PyT.csv', index=False)
+    df.to_csv('-.csv', index=False)
     del(qvb)
     gc.collect()
     return df
@@ -160,7 +160,7 @@ def query_y_creacion_DB_total(lista_upcs,arg1=None,arg2=None,arg3=None):
 
 def Modelo_WM_total(df, id_modelo):
     #Traigo la tabla de holidays (puede modificarse en la Base de datos)    
-    H = """SELECT  * FROM BIZMETRIKS.DWH.FERIADOS"""
+    H = """SELECT  * FROM --.FERIADOS"""
     Hol = snowflake.df_from_query(H) 
 
 
@@ -416,13 +416,8 @@ def guarda_Tabla_FCST_pror(dfout_pror,start,categoria='PERM',arg2=None):
                                         "locales":"GEOG_LOCL_ID"})
         df_final = df_final[['TIEM_DIA_ID','GEOG_LOCL_ID','ARTC_ARTC_ID', 'PRONOSTICO','PRON_SUP','PRON_INF','PRON_DIA_ID']]
 
-        #IMPORTANTISIMO
-        #- cuando terminas el modelo e inmediatamente antes de guardarlo, filtrarlo para que queden los datos del periodo forecasteado + los 60 dias previos al forecast
-        #- tenes que agregar al archivo  una columna que se llame 'modelo'cuyo contenido es el nombre del modelo (lo que antes era el nombre del archivo)
-        #- todos los outputs deben tener las mismas columnas con el mismo nombre
-        #- NOgrabas en formato  pkl sino que lo haces en una tabla de la base de datos de esta manera:
-
-        df_final.to_csv(f'/home/miglesias/Proyectos/BAS/forecast_bas/prophet/datos_prophet/FCST_{categoria}_BAS.csv', index=False)
+        
+        df_final.to_csv(f'--/FCST_{categoria}.csv', index=False)
         if categoria=='PERM':
             #GRABO EN SNOWFLAKE
 	(se graba a una tabla externa)
@@ -432,12 +427,4 @@ def guarda_Tabla_FCST_pror(dfout_pror,start,categoria='PERM',arg2=None):
         con.close() 
         del(con)
         gc.collect()
-    #### IMPORTANTE
-    #"modelos" es el Nombre de la tabla en la base de datos que va a crear, las columnas que va a crear la tabla son las del dataframe que le mando.
-    #si hago una segunda corrida  tira error si el df es distinto, porque la tabla ya esta creada 
-    #tiene que tener las mismas columnas con mismo tipo de datos tiene que tener la tabal
-
-
-
-
 
