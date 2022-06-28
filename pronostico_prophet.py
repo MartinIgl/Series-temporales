@@ -3,7 +3,6 @@
 #####################################
 
 import sys
-from xml.dom.expatbuilder import CDATA_SECTION_NODE
 from fx_app import *
 import pandas as pd
 import numpy as np
@@ -97,7 +96,7 @@ dfouts['yhat']=np.where(dfouts['yhat']<0,0,dfouts['yhat'])  #modificar por arreg
 
 
 r=1
-dfouts.to_csv(pathd+f"/pronostico_prophet_{t}_zona_futuro_{r}.csv", index=False)
+dfouts.to_csv(pathd+f"/pronostico_prophet_{t}_futuro_{r}.csv", index=False)
 print(" ")
 print(" ")
 print(" ")
