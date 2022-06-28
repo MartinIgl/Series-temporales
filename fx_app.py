@@ -10,14 +10,10 @@ from datetime import datetime, timedelta
 from sklearn.linear_model import LinearRegression
 #%%
 print("Comienza a ejecutarse script fx_app.py", datetime.today())
-pathd = "~/Proyectos/pronostico_carniceria/p2.0/datos"
+pathd = "~"
 
-#zonas = pd.read_csv(pathd+"/zonas_de_precio.csv")
-#df_desc = pd.read_csv(pathd+"/item_desc_unit.csv") # descripcion de los artículos
+
 feriados = pd.read_csv(pathd+"/feriados.csv")
-
-#df_historico_base1 = pd.read_csv(pathd+"/base1_por_Suc.csv") 
-#df_historico_base2 = pd.read_csv(pathd+"/base2_por_Suc.csv")
 df_historico_fecha_max ='2022-03-01' #df_historico_base1.fecha.max()
 df_historico_fecha_min ='2022-02-28'# df_historico_base1.fecha.min()
 
@@ -501,7 +497,7 @@ def download_excel(object_to_download, intro, fd, fh, download_link_text):
     # some strings <-> bytes conversions necessary here
     b64 = base64.b64encode(towrite.read()).decode()  # some strings
     # return f'<a href="data:file/txt;base64,{b64}" download={object_to_download.to_excel("{intro}_{zona}_{fd}_{fh}.xlsx")}>{download_link_text}</a>'
-    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{file_name}.xlsx">{download_link_text}</a>'
+    return f'<a href="data:application/vnd.openxmlformats-officedocument.s-readsheetml.sheet;base64,{b64}" download="{file_name}.xlsx">{download_link_text}</a>'
 
 
 def download_excel2(object_to_download, file_name, download_link_text):
@@ -514,7 +510,7 @@ def download_excel2(object_to_download, file_name, download_link_text):
     # some strings <-> bytes conversions necessary here
     b64 = base64.b64encode(towrite.read()).decode()  # some strings
     # return f'<a href="data:file/txt;base64,{b64}" download={object_to_download.to_excel("{intro}_{zona}_{fd}_{fh}.xlsx")}>{download_link_text}</a>'
-    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{file_name}.xlsx">{download_link_text}</a>'
+    return f'<a href="data:application/vnd.openxmlformats-officedocument.s-readsheetml.sheet;base64,{b64}" download="{file_name}.xlsx">{download_link_text}</a>'
 
 
 def crear_lista_precios(zonas, precios):
