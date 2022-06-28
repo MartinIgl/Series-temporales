@@ -109,7 +109,7 @@ t=df_reg.groupby(['zona','articulo']).agg({'venta_kg':'sum'}).sort_values(by=['z
 
 for n in niveles_zon:
     #se seleccionan los top 30 articulos por zona
-    for a in list(t[t.zona==n].head(70).articulo.unique()):
+    for a in list(t[t.zona==n].head(30).articulo.unique()):
       
         train = df_reg[(df_reg['articulo'] == a) & (df_reg['fecha'] < fecha_desde) & (df_reg[f'{nivel}'] == n)]
         test = df_reg[(df_reg['articulo'] == a) & (df_reg['fecha'] >= fecha_desde) & (df_reg['fecha'] <= fecha_hasta) & (df_reg[f'{nivel}'] == n)] #esto es el output de prophet y luego lo regulo con la regresion. porque a futuro no tengo otros elementos para la regresion salvo el output de prophet o sino tengo que hacer un multiple step ts
